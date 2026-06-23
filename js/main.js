@@ -34,27 +34,27 @@
   const secondsEl = document.getElementById('landing-seconds');
 
   const BILLI_PHOTOS = [
-    { key: 'billi-01', src: 'assets/photos/billi/01-childhood.jpg', caption: 'Little BILLI — already the prettiest' },
-    { key: 'billi-02', src: 'assets/photos/billi/02-restaurant.jpg', caption: 'That look I can never forget' },
-    { key: 'billi-03', src: 'assets/photos/billi/03-siblings.jpg', caption: 'Pure joy in one frame' },
-    { key: 'billi-04', src: 'assets/photos/billi/04-aesthetic.jpg', caption: 'Soft, beautiful, you' },
-    { key: 'billi-05', src: 'assets/photos/billi/05-white-hearts.jpg', caption: 'My favourite photo of you', wide: true },
-    { key: 'billi-06', src: 'assets/photos/billi/06-flower-filter.jpg', caption: 'Flower crown queen' },
-    { key: 'billi-07', src: 'assets/photos/billi/07-blazer.jpg', caption: 'Elegant as always' },
-    { key: 'billi-08', src: 'assets/photos/billi/08-with-baby.jpg', caption: 'Your gentle heart' },
-    { key: 'billi-09', src: 'assets/photos/billi/09-calligraphy.jpg', caption: 'Even from behind, I know it\'s you' },
-    { key: 'billi-10', src: 'assets/photos/billi/10-mirror.jpg', caption: 'Mirror, mirror — the fairest' },
-    { key: 'billi-11', src: 'assets/photos/billi/11-blue-polo.jpg', caption: 'Cozy and cute' },
-    { key: 'billi-12', src: 'assets/photos/billi/12-pout.jpg', caption: 'The pout that stole my heart' },
-    { key: 'billi-13', src: 'assets/photos/billi/13-sleeping.jpg', caption: 'Sleepy Billi hours' },
-    { key: 'billi-14', src: 'assets/photos/billi/14-red-sari.jpg', caption: 'Little you in red — so cute' },
-    { key: 'billi-15', src: 'assets/photos/billi/15-stairs.jpg', caption: 'Beautiful on the stairs' },
+    { key: 'billi-01', src: 'assets/photos/billi/little-billi-spiderman-bed.jpg', label: 'Little BILLI', caption: 'Spider-Man bed, PRETTY shirt & chips — tiny you was already adorable' },
+    { key: 'billi-02', src: 'assets/photos/billi/restaurant-pout-waiting.jpg', label: 'Restaurant pout', caption: 'Waiting for food with that famous BILLI pout' },
+    { key: 'billi-03', src: 'assets/photos/billi/siblings-selfie.jpg', label: 'Siblings selfie', caption: 'You and your little partner-in-crime — pure joy' },
+    { key: 'billi-04', src: 'assets/photos/billi/aesthetic-soft-portrait.jpg', label: 'Soft aesthetic', caption: 'Dreamy filter, heart & tulip stickers on your hair — effortlessly pretty' },
+    { key: 'billi-05', src: 'assets/photos/billi/favourite-hearts-tulips.jpg', label: 'My favourite', caption: 'Hearts & tulips in your hair — this one lives in my head rent-free', featured: true },
+    { key: 'billi-06', src: 'assets/photos/billi/flower-filter-rose-pillow.jpg', label: 'Flower filter', caption: 'Rose pillow, purple flower filter, that sweet little smile' },
+    { key: 'billi-07', src: 'assets/photos/billi/blue-polo-plaid-blazer.jpg', label: 'Smart casual', caption: 'Blue polo & plaid blazer — elegant without even trying' },
+    { key: 'billi-08', src: 'assets/photos/billi/gentle-heart-with-baby.jpg', label: 'Gentle heart', caption: 'Holding the baby so softly — your kindness shows in everything' },
+    { key: 'billi-09', src: 'assets/photos/billi/calligraphy-wall-from-behind.jpg', label: 'From behind', caption: 'Even from behind, with calligraphy on the wall — I know it\'s you' },
+    { key: 'billi-10', src: 'assets/photos/billi/mirror-selfie-elegant.jpg', label: 'Mirror selfie', caption: 'White shirt, full mirror fit — clean and beautiful' },
+    { key: 'billi-11', src: 'assets/photos/billi/blue-polo-floral-pillow.jpg', label: 'Cozy on bed', caption: 'Blue polo on floral pillows — cozy BILLI hours' },
+    { key: 'billi-12', src: 'assets/photos/billi/cute-pout-lavender.jpg', label: 'The pout', caption: 'Lavender wall, floral top, legendary pout — stole my heart here' },
+    { key: 'billi-13', src: 'assets/photos/billi/sleepy-resting-moment.jpg', label: 'Sleepy BILLI', caption: 'Resting after long days — still the cutest sleepy face' },
+    { key: 'billi-14', src: 'assets/photos/billi/little-red-traditional.jpg', label: 'Little red', caption: 'Tiny you in red traditional wear — so cute I can\'t handle it' },
+    { key: 'billi-15', src: 'assets/photos/billi/stairs-aesthetic-pose.jpg', label: 'Stairs aesthetic', caption: 'White shirt, jeans, staircase pose — main character energy' },
   ];
 
   const ME_PHOTOS = [
-    { key: 'me-01', src: 'assets/photos/me/01-motorcycle.jpg', caption: 'The guy who saves your reels and stays up on Roblox with you' },
-    { key: 'me-02', src: 'assets/photos/me/02-outdoors.jpg', caption: 'Hoping you see how much I mean all of this' },
-    { key: 'me-03', src: 'assets/photos/me/03-bike-angle.jpg', caption: 'Ready for real adventures — with you' },
+    { key: 'me-01', src: 'assets/photos/me/01-motorcycle.jpg', label: 'ASH', caption: 'On the bike — the guy who saves your reels & stays up on Roblox with you' },
+    { key: 'me-02', src: 'assets/photos/me/02-outdoors.jpg', label: 'ASH', caption: 'Hoping you see how much I mean every word on this page' },
+    { key: 'me-03', src: 'assets/photos/me/03-bike-angle.jpg', label: 'ASH', caption: 'Ready for real adventures — with you' },
   ];
 
   function getBirthdayState() {
@@ -233,6 +233,11 @@
       const fallback = img.getAttribute('src');
       img.src = resolvePhoto(key, fallback);
     });
+
+    document.querySelectorAll('.habit-card__media').forEach((btn) => {
+      const img = btn.querySelector('img');
+      if (img?.src) btn.dataset.src = img.src;
+    });
   }
 
   function initImageFallbacks() {
@@ -259,9 +264,16 @@
       billiGallery.innerHTML = BILLI_PHOTOS.map((photo) => {
         const src = resolvePhoto(photo.key, photo.src);
         return `
-        <button class="photo-gallery__item${photo.wide ? ' photo-gallery__item--wide' : ''} reveal" type="button" data-src="${src}" data-caption="${photo.caption}">
-          <img src="${src}" alt="${photo.caption}" loading="lazy">
-          <span class="photo-gallery__caption">${photo.caption}</span>
+        <button class="photo-card photo-card--polaroid${photo.featured ? ' photo-card--featured' : ''} reveal" type="button" data-src="${src}" data-caption="${photo.label} — ${photo.caption}">
+          <div class="photo-card__frame">
+            <div class="photo-card__image-wrap">
+              <img class="photo-card__image" src="${src}" alt="${photo.label}" loading="lazy">
+            </div>
+            <div class="photo-card__text">
+              <p class="photo-card__label">${photo.label}</p>
+              <p class="photo-card__caption">${photo.caption}</p>
+            </div>
+          </div>
         </button>
       `;
       }).join('');
@@ -270,9 +282,18 @@
     if (meGallery) {
       meGallery.innerHTML = ME_PHOTOS.map((photo) => {
         const src = resolvePhoto(photo.key, photo.src);
+        const label = photo.label || 'ASH';
         return `
-        <button class="me-gallery__item" type="button" data-src="${src}" data-caption="${photo.caption}">
-          <img src="${src}" alt="${photo.caption}" loading="lazy">
+        <button class="photo-card photo-card--polaroid photo-card--me reveal" type="button" data-src="${src}" data-caption="${label} — ${photo.caption}">
+          <div class="photo-card__frame">
+            <div class="photo-card__image-wrap">
+              <img class="photo-card__image" src="${src}" alt="${label}" loading="lazy">
+            </div>
+            <div class="photo-card__text">
+              <p class="photo-card__label">${label}</p>
+              <p class="photo-card__caption">${photo.caption}</p>
+            </div>
+          </div>
         </button>
       `;
       }).join('');
