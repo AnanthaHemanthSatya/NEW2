@@ -21,8 +21,9 @@
   const prankScreen = document.getElementById('prank-screen');
   const prankJk = document.getElementById('prank-jk');
 
-  const PRANK_DURATION_MS = 3500;
-  const PRANK_JK_DELAY_MS = 2200;
+  const PRANK_DURATION_MS = 4000;
+  const PRANK_JK_DELAY_MS = 2400;
+  const PRANK_GIF_SRC = 'assets/prank-monkey.gif';
 
   let confettiRunning = false;
   let confettiParticles = [];
@@ -96,6 +97,11 @@
     }, 280);
   }
 
+  function preloadPrankGif() {
+    const img = new Image();
+    img.src = PRANK_GIF_SRC;
+  }
+
   function unlockSite(belated, fromPassword) {
     if (isUnlocked) return;
     isUnlocked = true;
@@ -105,9 +111,10 @@
 
     openBtn.disabled = false;
     openBtn.classList.remove('btn--locked');
-    btnLabel.textContent = 'Open your birthday wishes';
+    btnLabel.textContent = 'Open your surprise';
     btnArrow.classList.remove('hidden');
     openBtn.querySelector('.btn__lock-icon').classList.add('hidden');
+    preloadPrankGif();
 
     const passwordSection = document.querySelector('.password-unlock');
     if (passwordSection) passwordSection.classList.add('hidden');
@@ -199,20 +206,18 @@
     prankPlaying = true;
     openBtn.disabled = true;
 
-    landing.classList.add('fade-out');
+    landing.style.display = 'none';
     landing.setAttribute('aria-hidden', 'true');
 
     if (!prankScreen) {
-      landing.style.display = 'none';
       revealMainContent();
       prankPlaying = false;
       return;
     }
 
     const prankGif = prankScreen.querySelector('.prank-screen__gif');
-    if (prankGif && !prankGif.getAttribute('src')) {
-      prankGif.removeAttribute('hidden');
-      prankGif.src = prankGif.dataset.src || 'assets/prank-monkey.gif';
+    if (prankGif) {
+      prankGif.src = PRANK_GIF_SRC;
     }
 
     prankScreen.classList.remove('hidden');
@@ -233,7 +238,7 @@
       setTimeout(() => {
         prankScreen.classList.add('hidden');
         prankScreen.setAttribute('aria-hidden', 'true');
-        landing.style.display = 'none';
+        if (prankGif) prankGif.src = '';
         revealMainContent();
         prankPlaying = false;
       }, 400);
@@ -477,7 +482,8 @@
     }
   });
 
-  openBtn.addEventListener('click', openSurprise);
+  if (openBtn) openBtn.addEventListener('click', openSurprise);
+  preloadPrankGif();
 
   if (landingPhoto) {
     landingPhoto.dataset.current = landingPhoto.dataset.srcLocked || landingPhoto.getAttribute('src');
