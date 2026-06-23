@@ -6,6 +6,8 @@
   const BIRTHDAY_YEAR = 2026;
   const PREVIEW_PASSWORD = 'LOVEYOUBISH';
 
+  const landingPhoto = document.getElementById('landing-photo');
+
   const landing = document.getElementById('landing');
   const main = document.getElementById('main');
   const openBtn = document.getElementById('open-surprise');
@@ -32,12 +34,12 @@
     { key: 'billi-02', src: 'assets/photos/billi/restaurant-pout-waiting.jpg', label: 'Restaurant pout', caption: 'Waiting for food with that famous BILLI pout' },
     { key: 'billi-03', src: 'assets/photos/billi/siblings-selfie.jpg', label: 'Siblings selfie', caption: 'You and your little partner-in-crime — pure joy' },
     { key: 'billi-04', src: 'assets/photos/billi/aesthetic-soft-portrait.jpg', label: 'Soft aesthetic', caption: 'Dreamy filter, heart & tulip stickers on your hair — effortlessly pretty' },
-    { key: 'billi-05', src: 'assets/photos/billi/favourite-hearts-tulips.jpg', label: 'My favourite', caption: 'Hearts & tulips in your hair — this one lives in my head rent-free', featured: true },
+    { key: 'billi-05', src: 'assets/photos/billi/mirror-selfie-elegant.jpg', label: 'My favourite', caption: 'White shirt, full mirror fit — clean and beautiful', featured: true },
     { key: 'billi-06', src: 'assets/photos/billi/flower-filter-rose-pillow.jpg', label: 'Flower filter', caption: 'Rose pillow, purple flower filter, that sweet little smile' },
     { key: 'billi-07', src: 'assets/photos/billi/blue-polo-plaid-blazer.jpg', label: 'Smart casual', caption: 'Blue polo & plaid blazer — elegant without even trying' },
     { key: 'billi-08', src: 'assets/photos/billi/gentle-heart-with-baby.jpg', label: 'Gentle heart', caption: 'Holding the baby so softly — your kindness shows in everything' },
     { key: 'billi-09', src: 'assets/photos/billi/calligraphy-wall-from-behind.jpg', label: 'From behind', caption: 'Even from behind, with calligraphy on the wall — I know it\'s you' },
-    { key: 'billi-10', src: 'assets/photos/billi/mirror-selfie-elegant.jpg', label: 'Mirror selfie', caption: 'White shirt, full mirror fit — clean and beautiful' },
+    { key: 'billi-10', src: 'assets/photos/billi/favourite-hearts-tulips.jpg', label: 'Hearts & tulips', caption: 'Heart & tulip stickers on your hair — effortlessly pretty' },
     { key: 'billi-11', src: 'assets/photos/billi/blue-polo-floral-pillow.jpg', label: 'Cozy on bed', caption: 'Blue polo on floral pillows — cozy BILLI hours' },
     { key: 'billi-12', src: 'assets/photos/billi/cute-pout-lavender.jpg', label: 'The pout', caption: 'Lavender wall, floral top, legendary pout — stole my heart here' },
     { key: 'billi-13', src: 'assets/photos/billi/sleepy-resting-moment.jpg', label: 'Sleepy BILLI', caption: 'Resting after long days — still the cutest sleepy face' },
@@ -67,6 +69,25 @@
 
   function pad(num) {
     return String(num).padStart(2, '0');
+  }
+
+  function setLandingPhoto(unlocked) {
+    if (!landingPhoto) return;
+
+    const nextSrc = unlocked
+      ? landingPhoto.dataset.srcUnlocked
+      : landingPhoto.dataset.srcLocked;
+
+    if (!nextSrc || landingPhoto.dataset.current === nextSrc) return;
+
+    landingPhoto.classList.add('landing__photo--swapping');
+
+    window.setTimeout(() => {
+      landingPhoto.src = nextSrc;
+      landingPhoto.dataset.current = nextSrc;
+      landingPhoto.classList.toggle('landing__photo--unlocked', unlocked);
+      landingPhoto.classList.remove('landing__photo--swapping');
+    }, 280);
   }
 
   function unlockSite(belated, fromPassword) {
@@ -100,6 +121,10 @@
     }
 
     updateBirthdayMessage(belated);
+
+    if (!fromPassword) {
+      setLandingPhoto(true);
+    }
   }
 
   function updateBirthdayMessage(belated) {
@@ -196,6 +221,7 @@
 
   function applyAllPhotos() {
     document.querySelectorAll('[data-photo-key]').forEach((img) => {
+      if (img.id === 'landing-photo') return;
       const key = img.dataset.photoKey;
       const fallback = img.getAttribute('src');
       img.src = resolvePhoto(key, fallback);
@@ -413,6 +439,10 @@
   });
 
   openBtn.addEventListener('click', openSurprise);
+
+  if (landingPhoto) {
+    landingPhoto.dataset.current = landingPhoto.dataset.srcLocked || landingPhoto.getAttribute('src');
+  }
 
   renderGalleries();
   initLightbox();

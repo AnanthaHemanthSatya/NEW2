@@ -65,6 +65,8 @@ body {
   justify-content: center;
   background: linear-gradient(135deg, #1a1a2e 0%, #2d2d44 50%, #1a1a2e 100%);
   transition: opacity 0.8s ease, visibility 0.8s ease;
+  overflow-y: auto;
+  padding: 1.5rem 0;
 }
 
 .landing.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -84,27 +86,84 @@ body {
 .landing__content {
   position: relative;
   text-align: center;
-  padding: 2rem;
-  max-width: 420px;
+  padding: 1.5rem 2rem 2rem;
+  max-width: 400px;
+  width: 100%;
   animation: fadeUp 1s ease 0.2s both;
 }
 
-.landing__photo-wrap {
-  width: min(168px, 40vw);
+.landing__photo-card {
   margin: 0 auto 1.25rem;
-  border-radius: 20px;
+  max-width: 156px;
+}
+
+.landing__photo-wrap {
+  width: 100%;
+  max-width: 156px;
+  height: 196px;
+  margin: 0 auto;
+  border-radius: 18px;
   overflow: hidden;
-  border: 3px solid rgba(201, 169, 110, 0.5);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+  border: 3px solid rgba(201, 169, 110, 0.55);
+  box-shadow:
+    0 10px 32px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.08) inset;
+  background: #111;
+  position: relative;
+}
+
+.landing__photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 15px;
+  box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.06);
+  pointer-events: none;
 }
 
 .landing__photo {
   width: 100%;
-  aspect-ratio: 3 / 4;
+  height: 100%;
+  max-width: 156px;
+  max-height: 196px;
   object-fit: cover;
-  object-position: center top;
-  image-orientation: from-image;
+  object-position: center center;
   display: block;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.landing__photo--swapping {
+  opacity: 0;
+  transform: scale(0.96);
+}
+
+.landing__photo--unlocked {
+  object-position: center 18%;
+}
+
+.landing__photo-tag {
+  margin-top: 0.65rem;
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.72);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .landing__photo-card,
+  .landing__photo-wrap {
+    max-width: 132px;
+  }
+
+  .landing__photo-wrap {
+    height: 168px;
+  }
+
+  .landing__photo {
+    max-width: 132px;
+    max-height: 168px;
+  }
 }
 
 @keyframes fadeUp {
