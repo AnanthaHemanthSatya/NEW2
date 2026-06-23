@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A birthday surprise and proposal for BILLI">
+  <title>For You, BILLI 💍</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
+
+  <div id="lightbox" class="lightbox hidden" role="dialog" aria-modal="true" aria-label="Photo preview">
+    <button id="lightbox-close" class="lightbox__close" type="button" aria-label="Close">&times;</button>
+    <img id="lightbox-img" class="lightbox__img" src="" alt="">
+    <p id="lightbox-caption" class="lightbox__caption"></p>
+  </div>
+
+  <div id="prank-screen" class="prank-screen hidden" aria-hidden="true">
+    <img class="prank-screen__gif" src="assets/prank-monkey.gif" alt="">
+    <p id="prank-jk" class="prank-screen__jk">…just kidding 😭</p>
+  </div>
+
+  <div id="landing" class="landing" aria-hidden="false">
+    <div class="landing__particles" aria-hidden="true"></div>
+    <div class="landing__content">
+      <p class="landing__eyebrow">A little secret…</p>
+      <h1 class="landing__title">Hey <span class="highlight">BILLI</span>…</h1>
+      <p class="landing__subtitle">Someone who shares reels with you all day made something special — a birthday surprise, and a question from the heart.</p>
+
+      <div id="lock-panel" class="lock-panel">
+        <div class="lock-panel__icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="22" width="28" height="20" rx="4" stroke="currentColor" stroke-width="2.5"/>
+            <path d="M16 22V16C16 11.58 19.58 8 24 8C28.42 8 32 11.58 32 16V22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="24" cy="32" r="2.5" fill="currentColor"/>
+          </svg>
+        </div>
+        <p id="lock-message" class="lock-panel__message">Your surprise unlocks on July 8</p>
+
+        <div id="landing-countdown" class="countdown countdown--landing" role="timer" aria-live="polite">
+          <div class="countdown__block">
+            <span id="landing-days" class="countdown__num">00</span>
+            <span class="countdown__label">Days</span>
+          </div>
+          <div class="countdown__block">
+            <span id="landing-hours" class="countdown__num">00</span>
+            <span class="countdown__label">Hours</span>
+          </div>
+          <div class="countdown__block">
+            <span id="landing-minutes" class="countdown__num">00</span>
+            <span class="countdown__label">Minutes</span>
+          </div>
+          <div class="countdown__block">
+            <span id="landing-seconds" class="countdown__num">00</span>
+            <span class="countdown__label">Seconds</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="unlock-panel" class="unlock-panel hidden">
+        <p class="unlock-panel__text">The wait is over — your surprise is ready!</p>
+      </div>
+
+      <button id="open-surprise" class="btn btn--primary btn--locked" type="button" disabled>
+        <span class="btn__lock-icon" aria-hidden="true">🔒</span>
+        <span id="btn-label">Locked until July 8</span>
+        <span class="btn__arrow hidden" id="btn-arrow" aria-hidden="true">→</span>
+      </button>
+
+      <div class="password-unlock">
+        <label class="password-unlock__label" for="preview-password">Preview access</label>
+        <div class="password-unlock__row">
+          <input id="preview-password" class="password-unlock__input" type="password" placeholder="Enter password" autocomplete="off" spellcheck="false">
+          <button id="preview-unlock" class="btn btn--preview" type="button">Unlock</button>
+        </div>
+        <p id="password-error" class="password-error hidden" role="alert">Wrong password — try again</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="main" class="main hidden" aria-hidden="true">
+
+    <header class="hero section">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="container hero__layout reveal">
+        <div class="hero__photo-wrap">
+          <img class="hero__photo" data-photo-key="billi-05" src="assets/photos/billi/05-white-hearts.jpg" alt="BILLI smiling" data-fallback="BILLI">
+          <div class="hero__photo-frame" aria-hidden="true"></div>
+        </div>
+        <div class="hero__text">
+          <p class="hero__eyebrow">July 8th · Birthday & something more</p>
+          <h1 class="hero__name">Aynanin Fatima</h1>
+          <p class="hero__nickname">aka <strong>BILLI</strong></p>
+          <p class="hero__age">Turning <span class="hero__age-num">67</span> — and more beautiful with every year</p>
+          <p class="hero__tagline">From the reels you send at sunrise to the Roblox nights we lose track of time in — you're my favourite person in every version of my day.</p>
+        </div>
+      </div>
+    </header>
+
+    <section class="countdown-section section" aria-labelledby="countdown-heading">
+      <div class="container">
+        <div id="birthday-message" class="birthday-message reveal" role="status">
+          <span class="birthday-message__emoji" aria-hidden="true">🎂</span>
+          <h2 id="countdown-heading" class="birthday-message__title">Happy 67th Birthday, BILLI!</h2>
+          <p class="birthday-message__text">Today is all about you — the girl who fills my whole day with reels, my nights with Roblox, and my heart with feelings I never want to hide again.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section section" aria-labelledby="gallery-heading">
+      <div class="container">
+        <h2 id="gallery-heading" class="section__title reveal">Every version of you</h2>
+        <p class="section__subtitle reveal">From little BILLI to today — every version of you has had my heart</p>
+        <div id="billi-gallery" class="photo-gallery"></div>
+      </div>
+    </section>
+
+    <section class="anime-section section" aria-labelledby="anime-heading">
+      <div class="container">
+        <h2 id="anime-heading" class="section__title reveal">Your anime world</h2>
+        <p class="section__subtitle reveal">Two shows, one amazing taste</p>
+        <div class="card-grid">
+          <article class="card card--demon reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="32" cy="32" r="28" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                <path d="M32 20 L36 30 L46 30 L38 36 L40 46 L32 40 L24 46 L26 36 L18 30 L28 30 Z" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Demon Slayer</h3>
+            <p class="card__text">You're stronger than any Hashira in my heart. Your courage, your kindness, the way you light up when you talk about it — I fall for you a little more every time.</p>
+          </article>
+          <article class="card card--spy reveal">
+            <div class="card__icon" aria-hidden="true">
+              <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="8" y="16" width="48" height="36" rx="6" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                <circle cx="24" cy="34" r="8" fill="currentColor" opacity="0.2"/>
+                <circle cx="40" cy="34" r="8" fill="currentColor" opacity="0.35"/>
+                <circle cx="32" cy="28" r="4" fill="currentColor"/>
+              </svg>
+            </div>
+            <h3 class="card__title">Spy x Family</h3>
+            <p class="card__text">You're my Anya-level favourite person — adorable, brilliant, impossible not to adore. The way you get excited about this show? That's exactly how I feel about you. Waku waku!</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="cake-section section" aria-labelledby="cake-heading">
+      <div class="container">
+        <div class="cake-layout reveal">
+          <div class="cake-visual" aria-hidden="true">
+            <div class="cake">
+              <div class="cake__candle"><div class="cake__flame"></div></div>
+              <div class="cake__frosting"></div>
+              <div class="cake__layer cake__layer--top"></div>
+              <div class="cake__layer cake__layer--mid"></div>
+              <div class="cake__layer cake__layer--bottom"></div>
+              <div class="cake__plate"></div>
+            </div>
+          </div>
+          <div class="cake-content">
+            <h2 id="cake-heading" class="section__title section__title--left">Red Velvet</h2>
+            <p class="cake-content__text">Your favourite cake — rich, sweet, unforgettable. Just like you, BILLI. One day I'll bake you the perfect red velvet. Until then, every sweet moment with you is enough.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="drama-section section" aria-labelledby="drama-heading">
+      <div class="container">
+        <blockquote class="drama-quote reveal">
+          <div class="drama-quote__badge">Hidden Love</div>
+          <p class="drama-quote__text">"Some feelings stay hidden until the right moment — mine for you couldn't stay quiet forever. Every reel, every late night, every laugh… it all led here."</p>
+          <footer class="drama-quote__footer">Your favourite drama taught me that the best love stories are worth waiting for — and worth saying out loud.</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="habits-section section" aria-labelledby="habits-heading">
+      <div class="container">
+        <h2 id="habits-heading" class="section__title reveal">Things that make you, you</h2>
+        <p class="section__subtitle reveal">The little habits I find endlessly charming</p>
+        <div class="habit-grid">
+          <article class="habit-card habit-card--photo reveal">
+            <img src="assets/photos/billi/13-sleeping.jpg" data-photo-key="billi-13" alt="BILLI resting" class="habit-card__img" data-fallback="Sleepy BILLI">
+            <div class="habit-card__overlay">
+              <h3 class="habit-card__title">Professional Sleeper</h3>
+              <p class="habit-card__text">Sleepy after our late Roblox nights — and still the cutest thing I've ever seen.</p>
+            </div>
+          </article>
+          <article class="habit-card habit-card--photo reveal">
+            <img src="assets/photos/billi/11-blue-polo.jpg" data-photo-key="billi-11" alt="BILLI on the bed" class="habit-card__img" data-fallback="Relaxed BILLI">
+            <div class="habit-card__overlay">
+              <h3 class="habit-card__title">Reel Partner</h3>
+              <p class="habit-card__text">All day long — funny reels, cute reels, ones that scream "this is so you." Every ping from you is my favourite notification.</p>
+            </div>
+          </article>
+          <article class="habit-card habit-card--photo reveal">
+            <img src="assets/photos/billi/10-mirror.jpg" data-photo-key="billi-10" alt="BILLI mirror selfie" class="habit-card__img" data-fallback="Elegant BILLI">
+            <div class="habit-card__overlay">
+              <h3 class="habit-card__title">White Soul</h3>
+              <p class="habit-card__text">Your favourite colour is white — pure, elegant, and radiant.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="us-section section" aria-labelledby="us-heading">
+      <div class="container">
+        <h2 id="us-heading" class="section__title reveal">Our everyday magic</h2>
+        <p class="section__subtitle reveal">The little things that made me fall — and keep falling</p>
+        <div class="moment-grid">
+          <article class="moment-card moment-card--reels reveal">
+            <span class="moment-card__emoji" aria-hidden="true">📱</span>
+            <h3 class="moment-card__title">Reels, all day long</h3>
+            <p class="moment-card__text">From the moment we wake up to when we finally say goodnight — we're sending each other reels. Funny ones. Cute ones. The kind that make me pause and think, <em>she thought of me</em>. I don't just watch them. I feel them. Because every reel from you feels like a little "I'm thinking about you" wrapped in a video.</p>
+            <p class="moment-card__text moment-card__text--soft">You fill my whole day without even trying. And honestly? I never want it to stop.</p>
+          </article>
+          <article class="moment-card moment-card--roblox reveal">
+            <span class="moment-card__emoji" aria-hidden="true">🎮</span>
+            <h3 class="moment-card__title">Late-night Roblox</h3>
+            <p class="moment-card__text">When the world goes quiet and it's just us — logging in, playing together, laughing at the chaos, staying up way too late because neither of us wants to log off. Those nights aren't just gaming to me. They're <em>ours</em>.</p>
+            <p class="moment-card__text moment-card__text--soft">Your laugh when something goes wrong. Your excitement when we win. The way time disappears when I'm with you — even through a screen. I look forward to those nights more than anything.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="feelings-section section" aria-labelledby="feelings-heading">
+      <div class="container">
+        <blockquote class="feelings-quote reveal">
+          <h2 id="feelings-heading" class="feelings-quote__title">What I need you to know</h2>
+          <p class="feelings-quote__text">I don't always say it out loud — but you are the first person I want to share everything with. A reel I saw. A song that reminded me of you. A random thought at 2 AM before we hop on Roblox.</p>
+          <p class="feelings-quote__text">You make ordinary days feel like something worth remembering. You make me want to be better, kinder, more present. When something good happens, you're who I think of first. When something's hard, you're who I wish I could tell in person.</p>
+          <p class="feelings-quote__text feelings-quote__text--highlight">I'm not hiding anymore. These feelings are real. They're big. And they're all for you, BILLI.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="me-section section" aria-labelledby="me-heading">
+      <div class="container">
+        <h2 id="me-heading" class="section__title reveal">This is me — asking you</h2>
+        <p class="section__subtitle reveal">The person who stays up playing Roblox with you and sends you reels all day — asking you something important</p>
+        <div id="me-gallery" class="me-gallery reveal"></div>
+        <p class="me-section__note reveal">I built this because words on a screen still aren't enough. But I needed you to know — every reel, every game, every late night… I choose you. Again and again.</p>
+      </div>
+    </section>
+
+    <section class="proposal-section section" aria-labelledby="proposal-heading">
+      <div class="container">
+        <div class="proposal reveal">
+          <div class="proposal__ring" aria-hidden="true">💍</div>
+          <h2 id="proposal-heading" class="proposal__title">BILLI, will you be mine?</h2>
+          <div class="proposal__body">
+            <p>BILLI, I need you to hear this properly — not in a reel, not in a Roblox chat, but right here.</p>
+            <p>You mean more to me than I usually let myself say. Every reel you send — I watch it like it's a message meant only for me. Because it is. You thinking of me, sharing your world with me, filling my notifications all day… that's not small to me. That's everything.</p>
+            <p>And our Roblox nights? When it's late and the world is asleep but we're still playing, still laughing, still not wanting to log off — those are the hours I hold closest. It's not about the game. It's about <em>you</em>. Your voice. Your laugh. The way you get excited. The way time disappears when I'm with you.</p>
+            <p>I love watching you enjoy anime and dramas. I love your sleepy scrolls, your white aesthetic, your red velvet dreams. I love every little habit that makes you <em>you</em>. But more than all of that — I love <em>us</em>. The us that shares reels from morning to night. The us that stays up too late on Roblox. The us I don't want to pretend is "just friends" anymore.</p>
+            <p>On your birthday, I don't just want to wish you happy birthday. I want to stop hiding what I feel and ask you properly:</p>
+            <p class="proposal__question">Will you give us a chance? Will you be my girlfriend?</p>
+            <p>You make me want to be better. You're the person I think about when something good happens — because I wish I could share every single moment with you, not through a screen, but right beside you.</p>
+            <p>I like you. A lot. More than I've said. More than reels and late nights can hold. This is me, finally saying it.</p>
+          </div>
+          <div id="proposal-buttons" class="proposal__buttons">
+            <button id="btn-yes" class="btn btn--yes" type="button">Yes! 💕</button>
+            <button id="btn-no" class="btn btn--no" type="button">No</button>
+          </div>
+          <div id="proposal-success" class="proposal__success hidden">
+            <span class="proposal__success-emoji" aria-hidden="true">🥹💕</span>
+            <h3 class="proposal__success-title">You just made me the happiest person alive!</h3>
+            <p class="proposal__success-text">Thank you, BILLI. You have no idea how happy you've made me. More reels, more Roblox nights, more of us — I promise to make every day as special as you are. This is just the beginning.</p>
+          </div>
+          <p class="proposal__signature">Forever yours,<br><span class="proposal__name">ASH</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Spy x Family proposal finale -->
+    <section class="spyfinale-section section" aria-labelledby="spyfinale-heading">
+      <div class="container">
+        <div class="spyfinale reveal">
+          <span class="spyfinale__badge">Spy x Family</span>
+          <h2 id="spyfinale-heading" class="spyfinale__title">The perfect proposal does, in fact, exist.</h2>
+          <p class="spyfinale__subtitle">Just like Loid and Yor — I finally said what was in my heart. This one's for you, BILLI.</p>
+
+          <div class="spyfinale__media-wrap">
+            <img
+              class="spyfinale__media"
+              src="assets/spy-x-family-proposal.gif"
+              alt="Spy x Family — Loid's grenade ring proposal scene"
+              loading="lazy"
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="footer__text">Made with love by <strong>ASH</strong>, just for <strong>BILLI</strong> · July 8 · 💍</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/photos-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Photos — BILLI Birthday Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #1a1a2e;
+      color: #fff;
+      min-height: 100vh;
+      padding: 2rem 1.5rem 4rem;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      text-align: center;
+      margin-bottom: 0.5rem;
+      font-size: 1.75rem;
+    }
+    .subtitle {
+      text-align: center;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 2rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+    .actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+  .btn {
+      padding: 0.85rem 1.5rem;
+      border: none;
+      border-radius: 50px;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn--primary {
+      background: linear-gradient(135deg, #fff, #f5f3ef);
+      color: #2c2c2c;
+    }
+    .btn--gold {
+      background: rgba(201, 169, 110, 0.35);
+      color: #e8d5b0;
+    }
+    .btn--ghost {
+      background: rgba(255,255,255,0.1);
+      color: rgba(255,255,255,0.8);
+    }
+    .status {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      font-size: 0.95rem;
+    }
+    .status--info { background: rgba(201,169,110,0.15); color: #e8d5b0; }
+    .status--ok { background: rgba(100,200,120,0.15); color: #a8e6b0; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .slot {
+      background: rgba(255,255,255,0.06);
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .slot.filled { border-style: solid; border-color: rgba(201,169,110,0.5); }
+    .slot.dragover { border-color: #c9a96e; background: rgba(201,169,110,0.1); }
+    .slot__label {
+      padding: 0.6rem 0.75rem;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.55);
+      background: rgba(0,0,0,0.2);
+    }
+    .slot__drop {
+      position: relative;
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      min-height: 140px;
+    }
+    .slot__drop input { display: none; }
+    .slot__placeholder {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      text-align: center;
+      padding: 1rem;
+      pointer-events: none;
+    }
+    .slot__preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+    }
+    .slot__clear {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      width: 24px;
+      height: 24px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 1;
+      z-index: 2;
+      display: none;
+    }
+    .slot.filled .slot__clear { display: block; }
+    .slot.filled .slot__placeholder { display: none; }
+    .open-link {
+      display: block;
+      text-align: center;
+      margin-top: 2rem;
+      color: #c9a96e;
+    }
+  </style>
+</head>
+<body>
+  <h1>Add Photos for BILLI's Site</h1>
+  <p class="subtitle">Click or drag each photo into its slot. When done, hit <strong>Save Photos</strong> — then open the main site and refresh.</p>
+
+  <div id="status" class="status status--info">0 of 16 photos added</div>
+
+  <div class="actions">
+    <button id="btn-save" class="btn btn--primary" type="button">Save Photos</button>
+    <button id="btn-download" class="btn btn--gold" type="button">Download photos-data.js</button>
+    <button id="btn-clear" class="btn btn--ghost" type="button">Clear All</button>
+  </div>
+
+  <div id="grid" class="grid"></div>
+
+  <a class="open-link" href="index.html">→ Open the birthday site</a>
+
+  <script>
+    const SLOTS = [
+      { key: 'billi-01', label: 'BILLI — Childhood (Spider-Man bed)', group: 'billi' },
+      { key: 'billi-02', label: 'BILLI — Restaurant', group: 'billi' },
+      { key: 'billi-03', label: 'BILLI — Sibling selfie', group: 'billi' },
+      { key: 'billi-04', label: 'BILLI — Aesthetic candid', group: 'billi' },
+      { key: 'billi-05', label: 'BILLI — White shirt + hearts (hero)', group: 'billi' },
+      { key: 'billi-06', label: 'BILLI — Flower filter', group: 'billi' },
+      { key: 'billi-07', label: 'BILLI — Blazer', group: 'billi' },
+      { key: 'billi-08', label: 'BILLI — With baby', group: 'billi' },
+      { key: 'billi-09', label: 'BILLI — Calligraphy background', group: 'billi' },
+      { key: 'billi-10', label: 'BILLI — Mirror selfie', group: 'billi' },
+      { key: 'billi-11', label: 'BILLI — Blue polo on bed', group: 'billi' },
+      { key: 'billi-12', label: 'BILLI — Pout at restaurant', group: 'billi' },
+      { key: 'billi-13', label: 'BILLI — Sleeping', group: 'billi' },
+      { key: 'me-01', label: 'ASH — Motorcycle', group: 'me' },
+      { key: 'me-02', label: 'ASH — Outdoors profile', group: 'me' },
+      { key: 'me-03', label: 'ASH — Bike angle', group: 'me' },
+    ];
+
+    const STORAGE_KEY = 'billi-birthday-photos';
+    const photos = {};
+
+    function loadStored() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) Object.assign(photos, JSON.parse(saved));
+      } catch (e) {}
+    }
+
+    function saveStored() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(photos));
+      writePhotosDataFile();
+    }
+
+    function writePhotosDataFile() {
+      const content = 'window.PHOTOS_DATA = ' + JSON.stringify(photos, null, 2) + ';\n';
+      return content;
+    }
+
+    function updateStatus() {
+      const count = Object.keys(photos).length;
+      const el = document.getElementById('status');
+      el.textContent = count + ' of 16 photos added';
+      el.className = 'status ' + (count === 16 ? 'status--ok' : 'status--info');
+      if (count === 16) {
+        el.textContent = 'All 16 photos added! Click Save Photos, then open the main site.';
+      }
+    }
+
+    function readFile(file, key) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        photos[key] = e.target.result;
+        saveStored();
+        renderSlot(key);
+        updateStatus();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function renderSlot(key) {
+      const slot = document.querySelector('[data-key="' + key + '"]');
+      if (!slot) return;
+      const preview = slot.querySelector('.slot__preview');
+      if (photos[key]) {
+        preview.src = photos[key];
+        slot.classList.add('filled');
+      } else {
+        preview.removeAttribute('src');
+        slot.classList.remove('filled');
+      }
+    }
+
+    function buildGrid() {
+      const grid = document.getElementById('grid');
+      grid.innerHTML = SLOTS.map((s) => `
+        <div class="slot" data-key="${s.key}">
+          <div class="slot__label">${s.label}</div>
+          <div class="slot__drop">
+            <input type="file" accept="image/*" data-key="${s.key}">
+            <img class="slot__preview" alt="">
+            <span class="slot__placeholder">Click or drop photo here</span>
+            <button class="slot__clear" type="button" data-key="${s.key}" title="Remove">&times;</button>
+          </div>
+        </div>
+      `).join('');
+
+      grid.querySelectorAll('.slot__drop').forEach((drop) => {
+        const key = drop.closest('.slot').dataset.key;
+        const input = drop.querySelector('input');
+
+        drop.addEventListener('click', (e) => {
+          if (e.target.classList.contains('slot__clear')) return;
+          input.click();
+        });
+
+        input.addEventListener('change', () => {
+          if (input.files[0]) readFile(input.files[0], key);
+        });
+
+        drop.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          drop.closest('.slot').classList.add('dragover');
+        });
+
+        drop.addEventListener('dragleave', () => {
+          drop.closest('.slot').classList.remove('dragover');
+        });
+
+        drop.addEventListener('drop', (e) => {
+          e.preventDefault();
+          drop.closest('.slot').classList.remove('dragover');
+          if (e.dataTransfer.files[0]) readFile(e.dataTransfer.files[0], key);
+        });
+      });
+
+      grid.querySelectorAll('.slot__clear').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          delete photos[btn.dataset.key];
+          saveStored();
+          renderSlot(btn.dataset.key);
+          updateStatus();
+        });
+      });
+
+      SLOTS.forEach((s) => renderSlot(s.key));
+    }
+
+    document.getElementById('btn-save').addEventListener('click', () => {
+      saveStored();
+      const count = Object.keys(photos).length;
+      if (count === 0) {
+        alert('Add at least one photo first!');
+        return;
+      }
+      alert('Photos saved! Open index.html and refresh — your photos will appear.');
+    });
+
+    document.getElementById('btn-download').addEventListener('click', () => {
+      const content = writePhotosDataFile();
+      const blob = new Blob([content], { type: 'text/javascript' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'photos-data.js';
+      a.click();
+      URL.revokeObjectURL(a.href);
+      alert('Downloaded photos-data.js — move it to the js/ folder (replace the old one) so photos work when you share the link.');
+    });
+
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      if (!confirm('Remove all photos?')) return;
+      Object.keys(photos).forEach((k) => delete photos[k]);
+      localStorage.removeItem(STORAGE_KEY);
+      SLOTS.forEach((s) => renderSlot(s.key));
+      updateStatus();
+    });
+
+    loadStored();
+    buildGrid();
+    updateStatus();
+  </script>
+</body>
+</html>
