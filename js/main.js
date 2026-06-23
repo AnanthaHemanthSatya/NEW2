@@ -107,13 +107,13 @@
     if (passwordSection) passwordSection.classList.add('hidden');
 
     if (belated) {
-      unlockPanel.querySelector('.unlock-panel__text').textContent =
+      unlockPanel.querySelector('.landing__ready-text').textContent =
         'Your birthday wishes are waiting for you, BILLI!';
     } else if (fromPassword) {
-      unlockPanel.querySelector('.unlock-panel__text').textContent =
+      unlockPanel.querySelector('.landing__ready-text').textContent =
         'Preview unlocked — take a look before the big day!';
     } else {
-      unlockPanel.querySelector('.unlock-panel__text').textContent =
+      unlockPanel.querySelector('.landing__ready-text').textContent =
         'Your birthday wishes are ready!';
       if (!confettiRunning) {
         startConfetti();

@@ -32,35 +32,37 @@
   </div>
 
   <div id="landing" class="landing" aria-hidden="false">
-    <div class="landing__particles" aria-hidden="true"></div>
-    <div class="landing__content">
-      <div class="landing__photo-card">
-        <div class="landing__photo-wrap">
-          <img
-            id="landing-photo"
-            class="landing__photo landing__photo--locked"
-            src="assets/photos/billi/aesthetic-soft-portrait.jpg"
-            data-src-locked="assets/photos/billi/aesthetic-soft-portrait.jpg"
-            data-src-unlocked="assets/photos/billi/mirror-selfie-elegant.jpg"
-            alt="BILLI"
-          >
+    <div class="landing__bg" aria-hidden="true">
+      <div class="landing__orb landing__orb--1"></div>
+      <div class="landing__orb landing__orb--2"></div>
+      <div class="landing__orb landing__orb--3"></div>
+    </div>
+
+    <div class="landing__card">
+      <div class="landing__top">
+        <div class="landing__polaroid">
+          <div class="landing__photo-wrap">
+            <img
+              id="landing-photo"
+              class="landing__photo landing__photo--locked"
+              src="assets/photos/billi/aesthetic-soft-portrait.jpg"
+              data-src-locked="assets/photos/billi/aesthetic-soft-portrait.jpg"
+              data-src-unlocked="assets/photos/billi/mirror-selfie-elegant.jpg"
+              alt="BILLI"
+            >
+          </div>
+          <p class="landing__polaroid-caption">BILLI ✨</p>
         </div>
-        <p class="landing__photo-tag">for you, BILLI ✨</p>
+
+        <div class="landing__headline">
+          <span class="landing__badge">🎂 Birthday Wishes</span>
+          <h1 class="landing__title">For you,<br><em>BILLI</em></h1>
+          <p class="landing__subtitle">Something special is waiting — it unlocks on July 8.</p>
+        </div>
       </div>
-      <p class="landing__eyebrow">Birthday wishes</p>
-      <h1 class="landing__title">For you, <span class="highlight">BILLI</span> 🎂</h1>
-      <p class="landing__subtitle">Someone made something special for your birthday — unlock it on July 8.</p>
 
-      <div id="lock-panel" class="lock-panel">
-        <div class="lock-panel__icon" aria-hidden="true">
-          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="10" y="22" width="28" height="20" rx="4" stroke="currentColor" stroke-width="2.5"/>
-            <path d="M16 22V16C16 11.58 19.58 8 24 8C28.42 8 32 11.58 32 16V22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
-            <circle cx="24" cy="32" r="2.5" fill="currentColor"/>
-          </svg>
-        </div>
-        <p id="lock-message" class="lock-panel__message">Your birthday wishes unlock on July 8</p>
-
+      <div id="lock-panel" class="landing__timer">
+        <p id="lock-message" class="landing__timer-label">Counting down to your day</p>
         <div id="landing-countdown" class="countdown countdown--landing" role="timer" aria-live="polite">
           <div class="countdown__block">
             <span id="landing-days" class="countdown__num">00</span>
@@ -72,33 +74,35 @@
           </div>
           <div class="countdown__block">
             <span id="landing-minutes" class="countdown__num">00</span>
-            <span class="countdown__label">Minutes</span>
+            <span class="countdown__label">Mins</span>
           </div>
           <div class="countdown__block">
             <span id="landing-seconds" class="countdown__num">00</span>
-            <span class="countdown__label">Seconds</span>
+            <span class="countdown__label">Secs</span>
           </div>
         </div>
       </div>
 
-      <div id="unlock-panel" class="unlock-panel hidden">
-        <p class="unlock-panel__text">Your birthday wishes are ready!</p>
+      <div id="unlock-panel" class="landing__ready hidden">
+        <p class="landing__ready-text">Your birthday wishes are ready!</p>
       </div>
 
-      <button id="open-surprise" class="btn btn--primary btn--locked" type="button" disabled>
+      <button id="open-surprise" class="btn btn--primary btn--landing btn--locked" type="button" disabled>
         <span class="btn__lock-icon" aria-hidden="true">🔒</span>
         <span id="btn-label">Locked until July 8</span>
         <span class="btn__arrow hidden" id="btn-arrow" aria-hidden="true">→</span>
       </button>
 
-      <div class="password-unlock">
-        <label class="password-unlock__label" for="preview-password">Preview access</label>
-        <div class="password-unlock__row">
-          <input id="preview-password" class="password-unlock__input" type="password" placeholder="Enter password" autocomplete="off" spellcheck="false">
-          <button id="preview-unlock" class="btn btn--preview" type="button">Unlock</button>
+      <details class="password-unlock">
+        <summary class="password-unlock__toggle">Preview access</summary>
+        <div class="password-unlock__body">
+          <div class="password-unlock__row">
+            <input id="preview-password" class="password-unlock__input" type="password" placeholder="Enter password" autocomplete="off" spellcheck="false">
+            <button id="preview-unlock" class="btn btn--preview" type="button">Go</button>
+          </div>
+          <p id="password-error" class="password-error hidden" role="alert">Wrong password — try again</p>
         </div>
-        <p id="password-error" class="password-error hidden" role="alert">Wrong password — try again</p>
-      </div>
+      </details>
     </div>
   </div>
 
