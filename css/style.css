@@ -85,7 +85,26 @@ body {
   position: relative;
   text-align: center;
   padding: 2rem;
+  max-width: 420px;
   animation: fadeUp 1s ease 0.2s both;
+}
+
+.landing__photo-wrap {
+  width: min(168px, 40vw);
+  margin: 0 auto 1.25rem;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 3px solid rgba(201, 169, 110, 0.5);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.landing__photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  image-orientation: from-image;
+  display: block;
 }
 
 @keyframes fadeUp {
@@ -621,7 +640,7 @@ body {
 .moment-card__text--soft { font-family: var(--font-display); font-style: italic; font-size: 0.95rem; margin-bottom: 0; color: var(--text); opacity: 0.85; }
 
 /* ===== Feelings ===== */
-.feelings-section { background: linear-gradient(180deg, var(--off-white) 0%, var(--blush) 100%); }
+.wishes-section { background: linear-gradient(180deg, var(--off-white) 0%, var(--blush) 100%); }
 .feelings-quote {
   max-width: 680px;
   margin: 0 auto;

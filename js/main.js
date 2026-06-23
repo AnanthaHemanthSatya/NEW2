@@ -16,17 +16,11 @@
   const lockMessage = document.getElementById('lock-message');
   const birthdayMessage = document.getElementById('birthday-message');
   const confettiCanvas = document.getElementById('confetti-canvas');
-  const prankScreen = document.getElementById('prank-screen');
-  const prankJk = document.getElementById('prank-jk');
-
-  const PRANK_DURATION_MS = 3500;
-  const PRANK_JK_DELAY_MS = 2200;
 
   let confettiRunning = false;
   let confettiParticles = [];
   let isUnlocked = false;
   let hasTriggeredUnlock = false;
-  let prankPlaying = false;
 
   const daysEl = document.getElementById('landing-days');
   const hoursEl = document.getElementById('landing-hours');
@@ -84,7 +78,7 @@
 
     openBtn.disabled = false;
     openBtn.classList.remove('btn--locked');
-    btnLabel.textContent = 'Open your surprise';
+    btnLabel.textContent = 'Open your birthday wishes';
     btnArrow.classList.remove('hidden');
     openBtn.querySelector('.btn__lock-icon').classList.add('hidden');
 
@@ -93,13 +87,13 @@
 
     if (belated) {
       unlockPanel.querySelector('.unlock-panel__text').textContent =
-        'Your surprise is waiting for you, BILLI!';
+        'Your birthday wishes are waiting for you, BILLI!';
     } else if (fromPassword) {
       unlockPanel.querySelector('.unlock-panel__text').textContent =
         'Preview unlocked — take a look before the big day!';
     } else {
       unlockPanel.querySelector('.unlock-panel__text').textContent =
-        'The wait is over — your surprise is ready!';
+        'Your birthday wishes are ready!';
       if (!confettiRunning) {
         startConfetti();
       }
@@ -119,7 +113,7 @@
       text.textContent = 'You deserve to be celebrated every day — but especially on July 8.';
     } else {
       title.textContent = 'Happy 67th Birthday, BILLI!';
-      text.textContent = 'Today is all about you — the most special person I know.';
+      text.textContent = 'Today is all about you — your smile, your energy, and every little thing that makes you BILLI.';
     }
   }
 
@@ -170,49 +164,16 @@
   }
 
   function openSurprise() {
-    if (!isUnlocked || prankPlaying) return;
-    prankPlaying = true;
+    if (!isUnlocked) return;
     openBtn.disabled = true;
 
     landing.classList.add('fade-out');
     landing.setAttribute('aria-hidden', 'true');
 
-    if (!prankScreen) {
+    setTimeout(() => {
       landing.style.display = 'none';
       revealMainContent();
-      prankPlaying = false;
-      return;
-    }
-
-    const prankGif = prankScreen.querySelector('.prank-screen__gif');
-    if (prankGif && !prankGif.getAttribute('src')) {
-      prankGif.removeAttribute('hidden');
-      prankGif.src = prankGif.dataset.src || 'assets/prank-monkey.gif';
-    }
-
-    prankScreen.classList.remove('hidden');
-    prankScreen.setAttribute('aria-hidden', 'false');
-    if (prankJk) prankJk.classList.remove('visible');
-
-    requestAnimationFrame(() => {
-      prankScreen.classList.add('visible');
-    });
-
-    setTimeout(() => {
-      if (prankJk) prankJk.classList.add('visible');
-    }, PRANK_JK_DELAY_MS);
-
-    setTimeout(() => {
-      prankScreen.classList.remove('visible');
-
-      setTimeout(() => {
-        prankScreen.classList.add('hidden');
-        prankScreen.setAttribute('aria-hidden', 'true');
-        landing.style.display = 'none';
-        revealMainContent();
-        prankPlaying = false;
-      }, 400);
-    }, PRANK_DURATION_MS);
+    }, 400);
   }
 
   const STORAGE_KEY = 'billi-birthday-photos';
@@ -346,56 +307,6 @@
     });
   }
 
-  function initProposal() {
-    const btnYes = document.getElementById('btn-yes');
-    const btnNo = document.getElementById('btn-no');
-    const proposalButtons = document.getElementById('proposal-buttons');
-    const proposalSuccess = document.getElementById('proposal-success');
-
-    if (!btnYes || !btnNo) return;
-
-    let noClicks = 0;
-    const noTexts = ['No', 'Are you sure?', 'Really sure?', 'Think again!', 'Pretty please?', 'Last chance!'];
-
-    btnYes.addEventListener('click', () => {
-      proposalButtons.classList.add('hidden');
-      proposalSuccess.classList.remove('hidden');
-      if (!confettiRunning) startConfetti();
-
-      const spyFinale = document.querySelector('.spyfinale-section');
-      if (spyFinale) {
-        setTimeout(() => {
-          spyFinale.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }, 1200);
-      }
-    });
-
-    btnNo.addEventListener('click', () => {
-      noClicks++;
-      btnNo.textContent = noTexts[Math.min(noClicks, noTexts.length - 1)];
-
-      const container = proposalButtons;
-      const maxX = container.clientWidth - btnNo.offsetWidth - 20;
-      const maxY = 40;
-      const x = Math.random() * maxX;
-      const y = Math.random() * maxY;
-
-      btnNo.style.position = 'absolute';
-      btnNo.style.left = `${x}px`;
-      btnNo.style.top = `${y}px`;
-
-      btnYes.style.transform = `scale(${1 + noClicks * 0.08})`;
-    });
-
-    btnNo.addEventListener('mouseover', () => {
-      if (noClicks > 0) {
-        const container = proposalButtons;
-        const maxX = container.clientWidth - btnNo.offsetWidth - 20;
-        btnNo.style.left = `${Math.random() * maxX}px`;
-      }
-    });
-  }
-
   function initPasswordUnlock() {
     const passwordInput = document.getElementById('preview-password');
     const passwordBtn = document.getElementById('preview-unlock');
@@ -505,7 +416,6 @@
 
   renderGalleries();
   initLightbox();
-  initProposal();
   initPasswordUnlock();
   initImageFallbacks();
   updateCountdown();
