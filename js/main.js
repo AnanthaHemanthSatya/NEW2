@@ -184,6 +184,12 @@
       return;
     }
 
+    const prankGif = prankScreen.querySelector('.prank-screen__gif');
+    if (prankGif && !prankGif.getAttribute('src')) {
+      prankGif.removeAttribute('hidden');
+      prankGif.src = prankGif.dataset.src || 'assets/prank-monkey.gif';
+    }
+
     prankScreen.classList.remove('hidden');
     prankScreen.setAttribute('aria-hidden', 'false');
     if (prankJk) prankJk.classList.remove('visible');
