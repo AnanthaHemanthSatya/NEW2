@@ -805,6 +805,7 @@ body {
 .moment-card__text--soft { font-family: var(--font-display); font-style: italic; font-size: 0.95rem; margin-bottom: 0; color: var(--text); opacity: 0.85; }
 
 /* ===== Feelings ===== */
+.feelings-section,
 .wishes-section { background: linear-gradient(180deg, var(--off-white) 0%, var(--blush) 100%); }
 .feelings-quote {
   max-width: 680px;

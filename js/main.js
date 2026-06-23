@@ -377,6 +377,56 @@
     });
   }
 
+  function initProposal() {
+    const btnYes = document.getElementById('btn-yes');
+    const btnNo = document.getElementById('btn-no');
+    const proposalButtons = document.getElementById('proposal-buttons');
+    const proposalSuccess = document.getElementById('proposal-success');
+
+    if (!btnYes || !btnNo) return;
+
+    let noClicks = 0;
+    const noTexts = ['No', 'Are you sure?', 'Really sure?', 'Think again!', 'Pretty please?', 'Last chance!'];
+
+    btnYes.addEventListener('click', () => {
+      proposalButtons.classList.add('hidden');
+      proposalSuccess.classList.remove('hidden');
+      if (!confettiRunning) startConfetti();
+
+      const spyFinale = document.querySelector('.spyfinale-section');
+      if (spyFinale) {
+        setTimeout(() => {
+          spyFinale.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 1200);
+      }
+    });
+
+    btnNo.addEventListener('click', () => {
+      noClicks++;
+      btnNo.textContent = noTexts[Math.min(noClicks, noTexts.length - 1)];
+
+      const container = proposalButtons;
+      const maxX = container.clientWidth - btnNo.offsetWidth - 20;
+      const maxY = 40;
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      btnNo.style.position = 'absolute';
+      btnNo.style.left = `${x}px`;
+      btnNo.style.top = `${y}px`;
+
+      btnYes.style.transform = `scale(${1 + noClicks * 0.08})`;
+    });
+
+    btnNo.addEventListener('mouseover', () => {
+      if (noClicks > 0) {
+        const container = proposalButtons;
+        const maxX = container.clientWidth - btnNo.offsetWidth - 20;
+        btnNo.style.left = `${Math.random() * maxX}px`;
+      }
+    });
+  }
+
   function initPasswordUnlock() {
     const passwordInput = document.getElementById('preview-password');
     const passwordBtn = document.getElementById('preview-unlock');
@@ -491,6 +541,7 @@
 
   renderGalleries();
   initLightbox();
+  initProposal();
   initPasswordUnlock();
   initImageFallbacks();
   updateCountdown();
