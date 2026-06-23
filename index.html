@@ -20,7 +20,61 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=3">
+  <style id="landing-critical">
+    .landing {
+      background: linear-gradient(160deg, #faf9f7 0%, #f5ebe8 45%, #f4e4e4 100%) !important;
+      padding: 1.25rem;
+    }
+    .landing__card {
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+      margin: 0 auto;
+      padding: 1.75rem 1.5rem 1.5rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 28px;
+      box-shadow: 0 20px 60px rgba(44, 44, 44, 0.1), 0 0 0 1px rgba(201, 169, 110, 0.12);
+    }
+    .landing__bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .landing__orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.55; }
+    .landing__orb--1 { width: 280px; height: 280px; background: rgba(201, 169, 110, 0.35); top: -80px; right: -60px; }
+    .landing__orb--2 { width: 220px; height: 220px; background: rgba(244, 228, 228, 0.9); bottom: 10%; left: -50px; }
+    .landing__orb--3 { width: 160px; height: 160px; background: rgba(232, 213, 176, 0.5); top: 40%; right: 10%; }
+    .landing__top { display: flex; flex-direction: column; align-items: center; gap: 1.25rem; margin-bottom: 1.5rem; }
+    .landing__polaroid { transform: rotate(-2deg); }
+    .landing__photo-wrap {
+      width: 188px; height: 228px; padding: 10px 10px 28px;
+      background: #fff; border-radius: 6px;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.12); overflow: hidden;
+    }
+    .landing__photo { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 2px; }
+    .landing__polaroid-caption { margin-top: 0.55rem; font-style: italic; color: #6b6b6b; text-align: center; }
+    .landing__badge {
+      display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
+      text-transform: uppercase; color: #c9a96e; background: rgba(201, 169, 110, 0.12);
+      padding: 0.35rem 0.85rem; border-radius: 50px; margin-bottom: 0.75rem;
+    }
+    .landing__title { font-size: clamp(1.85rem, 7vw, 2.35rem); font-weight: 700; line-height: 1.15; color: #2c2c2c; margin-bottom: 0.5rem; }
+    .landing__title em { font-style: italic; color: #c9a96e; }
+    .landing__subtitle { font-size: 0.95rem; line-height: 1.55; color: #6b6b6b; max-width: 28ch; margin: 0 auto; text-align: center; }
+    .landing__timer-label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.08em; color: #6b6b6b; text-align: center; margin-bottom: 0.75rem; }
+    .countdown--landing { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0.5rem; }
+    .countdown--landing .countdown__block { min-width: 0; padding: 0.75rem 0.35rem; background: #faf9f7; border: 1px solid rgba(201, 169, 110, 0.2); border-radius: 14px; }
+    .countdown--landing .countdown__num { font-size: clamp(1.35rem, 5vw, 1.75rem); color: #2c2c2c; font-weight: 700; }
+    .countdown--landing .countdown__label { font-size: 0.62rem; color: #6b6b6b; text-transform: uppercase; }
+    .btn--landing { width: 100%; justify-content: center; }
+    .btn--landing.btn--locked { background: #faf9f7; color: #6b6b6b; border: 1px dashed rgba(201, 169, 110, 0.35); opacity: 1; }
+    .password-unlock { margin-top: 0.75rem; text-align: center; }
+    .password-unlock__toggle { font-size: 0.78rem; color: #6b6b6b; cursor: pointer; list-style: none; }
+    .password-unlock__toggle::-webkit-details-marker { display: none; }
+    .password-unlock__input { border: 1px solid rgba(201, 169, 110, 0.3); background: #faf9f7; color: #2c2c2c; border-radius: 50px; padding: 0.65rem 1rem; }
+    @media (min-width: 460px) {
+      .landing__top { flex-direction: row; align-items: center; text-align: left; }
+      .landing__headline { text-align: left; }
+      .landing__subtitle { margin: 0; text-align: left; }
+    }
+  </style>
 </head>
 <body>
   <canvas id="confetti-canvas" class="confetti-canvas" aria-hidden="true"></canvas>
@@ -278,7 +332,7 @@
     </footer>
   </div>
 
-  <script src="js/photos-data.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/photos-data.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>
