@@ -179,6 +179,10 @@ body {
   object-position: center 15%;
 }
 
+.landing__photo--favourite {
+  object-position: center 18%;
+}
+
 .landing__polaroid-caption {
   margin-top: 0.55rem;
   font-family: var(--font-display);

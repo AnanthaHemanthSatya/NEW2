@@ -18,11 +18,17 @@
   const lockMessage = document.getElementById('lock-message');
   const birthdayMessage = document.getElementById('birthday-message');
   const confettiCanvas = document.getElementById('confetti-canvas');
+  const prankScreen = document.getElementById('prank-screen');
+  const prankJk = document.getElementById('prank-jk');
+
+  const PRANK_DURATION_MS = 3500;
+  const PRANK_JK_DELAY_MS = 2200;
 
   let confettiRunning = false;
   let confettiParticles = [];
   let isUnlocked = false;
   let hasTriggeredUnlock = false;
+  let prankPlaying = false;
 
   const daysEl = document.getElementById('landing-days');
   const hoursEl = document.getElementById('landing-hours');
@@ -189,16 +195,49 @@
   }
 
   function openSurprise() {
-    if (!isUnlocked) return;
+    if (!isUnlocked || prankPlaying) return;
+    prankPlaying = true;
     openBtn.disabled = true;
 
     landing.classList.add('fade-out');
     landing.setAttribute('aria-hidden', 'true');
 
-    setTimeout(() => {
+    if (!prankScreen) {
       landing.style.display = 'none';
       revealMainContent();
-    }, 400);
+      prankPlaying = false;
+      return;
+    }
+
+    const prankGif = prankScreen.querySelector('.prank-screen__gif');
+    if (prankGif && !prankGif.getAttribute('src')) {
+      prankGif.removeAttribute('hidden');
+      prankGif.src = prankGif.dataset.src || 'assets/prank-monkey.gif';
+    }
+
+    prankScreen.classList.remove('hidden');
+    prankScreen.setAttribute('aria-hidden', 'false');
+    if (prankJk) prankJk.classList.remove('visible');
+
+    requestAnimationFrame(() => {
+      prankScreen.classList.add('visible');
+    });
+
+    setTimeout(() => {
+      if (prankJk) prankJk.classList.add('visible');
+    }, PRANK_JK_DELAY_MS);
+
+    setTimeout(() => {
+      prankScreen.classList.remove('visible');
+
+      setTimeout(() => {
+        prankScreen.classList.add('hidden');
+        prankScreen.setAttribute('aria-hidden', 'true');
+        landing.style.display = 'none';
+        revealMainContent();
+        prankPlaying = false;
+      }, 400);
+    }, PRANK_DURATION_MS);
   }
 
   const STORAGE_KEY = 'billi-birthday-photos';

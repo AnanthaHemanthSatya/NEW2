@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css?v=4">
   <style id="landing-critical">
     .landing {
       background: linear-gradient(160deg, #faf9f7 0%, #f5ebe8 45%, #f4e4e4 100%) !important;
@@ -48,7 +48,8 @@
       background: #fff; border-radius: 6px;
       box-shadow: 0 8px 28px rgba(0,0,0,0.12); overflow: hidden;
     }
-    .landing__photo { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 2px; }
+    .landing__photo { width: 100%; height: 100%; object-fit: cover; object-position: center 12%; display: block; border-radius: 2px; }
+    .landing__photo--favourite { object-position: center 20%; }
     .landing__polaroid-caption { margin-top: 0.55rem; font-style: italic; color: #6b6b6b; text-align: center; }
     .landing__badge {
       display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em;
@@ -85,6 +86,11 @@
     <p id="lightbox-caption" class="lightbox__caption"></p>
   </div>
 
+  <div id="prank-screen" class="prank-screen hidden" aria-hidden="true">
+    <img class="prank-screen__gif" src="" alt="" data-src="assets/prank-monkey.gif" hidden>
+    <p id="prank-jk" class="prank-screen__jk">…just kidding 😭</p>
+  </div>
+
   <div id="landing" class="landing" aria-hidden="false">
     <div class="landing__bg" aria-hidden="true">
       <div class="landing__orb landing__orb--1"></div>
@@ -98,11 +104,11 @@
           <div class="landing__photo-wrap">
             <img
               id="landing-photo"
-              class="landing__photo landing__photo--locked"
-              src="assets/photos/billi/aesthetic-soft-portrait.jpg"
-              data-src-locked="assets/photos/billi/aesthetic-soft-portrait.jpg"
+              class="landing__photo landing__photo--favourite"
+              src="assets/photos/billi/mirror-selfie-elegant.jpg"
+              data-src-locked="assets/photos/billi/mirror-selfie-elegant.jpg"
               data-src-unlocked="assets/photos/billi/mirror-selfie-elegant.jpg"
-              alt="BILLI"
+              alt="BILLI — my favourite"
             >
           </div>
           <p class="landing__polaroid-caption">BILLI ✨</p>
@@ -332,7 +338,7 @@
     </footer>
   </div>
 
-  <script src="js/photos-data.js?v=3"></script>
-  <script src="js/main.js?v=3"></script>
+  <script src="js/photos-data.js?v=4"></script>
+  <script src="js/main.js?v=4"></script>
 </body>
 </html>
